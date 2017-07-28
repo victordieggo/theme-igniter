@@ -1,14 +1,17 @@
 <?php
 
 //===================================================================
-// UNREGISTER ALL WP WIDGETS
+// THEME WIDGETS
 //===================================================================
+
+//-------------------------------------------------------------------
+// UNREGISTER ALL WP WIDGETS
+//-------------------------------------------------------------------
 
 add_action('widgets_init', 'unregister_default_widgets', 11);
 
 function unregister_default_widgets() {
 
-	//WORDPRESS WIDGETS
 	unregister_widget('WP_Widget_Pages');
 	unregister_widget('WP_Widget_Calendar');
 	unregister_widget('WP_Widget_Archives');
@@ -23,12 +26,15 @@ function unregister_default_widgets() {
 	unregister_widget('WP_Widget_Tag_Cloud');
 	unregister_widget('WP_Nav_Menu_Widget');
 	unregister_widget('Twenty_Eleven_Ephemera_Widget');
+  unregister_widget('WP_Widget_Media_Video');
+  unregister_widget('WP_Widget_Media_Audio');
+  unregister_widget('WP_Widget_Media_Image');
 
 }
 
-//===================================================================
+//-------------------------------------------------------------------
 // REGISTER MAIN SIDEBAR
-//===================================================================
+//-------------------------------------------------------------------
 
 $args = array(
 	'name'          => 'Sidebar',
