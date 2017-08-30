@@ -29,3 +29,21 @@ function prefix_nav_menu_args($args = '') {
   $args['container'] = false;
   return $args;
 }
+
+//-------------------------------------------------------------------
+// FILTER CLASSES FROM MENUS
+//-------------------------------------------------------------------
+
+add_filter('nav_menu_css_class', 'custom_wp_nav_menu');
+add_filter('nav_menu_item_id', 'custom_wp_nav_menu');
+add_filter('page_css_class', 'custom_wp_nav_menu');
+
+function custom_wp_nav_menu($var) {
+  $allowed_classes = array(
+    'menu-item-has-children',
+    'current-menu-ancestor',
+    'current-menu-item',
+    'menu-item-home',
+  );
+  return is_array($var) ? array_intersect($var, $allowed_classes) : '';
+}
