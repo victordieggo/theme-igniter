@@ -16,17 +16,17 @@ function relative_url() {
     'the_content_more_link',
     'the_tags',
     'the_author_posts_link',
-    'post_link',       // Normal post link
-    'post_type_link',  // Custom post type link
-    'page_link',       // Page link
-    'attachment_link', // Attachment link
-    'get_shortlink',   // Shortlink
+    'post_link',                 // Normal post link
+    'post_type_link',            // Custom post type link
+    'page_link',                 // Page link
+    'attachment_link',           // Attachment link
+    'get_shortlink',             // Shortlink
     'post_type_archive_link',    // Post type archive link
     'get_pagenum_link',          // Paginated link
     'get_comments_pagenum_link', // Paginated comment link
-    'term_link',   // Term link, including category, tag
-    'search_link', // Search link
-    'day_link',   // Date archive link
+    'term_link',                 // Term link, including category, tag
+    'search_link',               // Search link
+    'day_link',                  // Date archive link
     'month_link',
     'year_link',
 
@@ -55,30 +55,24 @@ function relative_url() {
     'wp_logout_url',
     'wp_lostpassword_url',
     'get_stylesheet_uri',
-    // 'get_stylesheet_directory_uri',
-    // 'plugins_url',
-    // 'plugin_dir_url',
-    // 'stylesheet_directory_uri',
-    // 'get_template_directory_uri',
-    // 'template_directory_uri',
     'get_locale_stylesheet_uri',
-    'script_loader_src', // plugin scripts url
-    'style_loader_src', // plugin styles url
+    'script_loader_src',        // plugin scripts url
+    'style_loader_src',         // plugin styles url
     'get_theme_root_uri'
-    // 'home_url'
   );
 
-  // Thanks to https://wordpress.org/support/topic/request-only-replace-local-urls
-  $home_url = network_site_url( '/' );
-  $filter_fn = function( $link ) use ( $home_url ) {
-    if ( !is_array($link) && strpos( $link, $home_url ) === 0 ) {
-      return wp_make_link_relative( $link );
+  $home_url = network_site_url('/');
+
+  $filter_fn = function($link) use ($home_url) {
+    if (!is_array($link) && strpos($link, $home_url) === 0) {
+      return wp_make_link_relative($link);
     } else {
       return $link;
     }
   };
 
-  foreach ( $filters as $filter ) {
-    add_filter( $filter, $filter_fn );
+  foreach ($filters as $filter) {
+    add_filter($filter, $filter_fn);
   }
+
 }
