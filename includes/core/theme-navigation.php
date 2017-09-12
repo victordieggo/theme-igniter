@@ -44,6 +44,9 @@ function custom_wp_nav_menu($var) {
     'current-menu-ancestor',
     'current-menu-item',
     'menu-item-home',
+    'menu-item',
+    'sub-menu,',
+    'menu,',
   );
   return is_array($var) ? array_intersect($var, $allowed_classes) : '';
 }
