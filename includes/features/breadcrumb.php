@@ -8,7 +8,7 @@
 function wp_breadcrumb() {
 
   $showOnHome = 0; // 1 - show breadcrumbs on the homepage, 0 - don't show
-  $delimiter = '<svg viewBox="0 0 30.1 51.6"><path d="M30.1 25.8c0 0.4-0.2 0.9-0.5 1.2L5.5 51.1c-0.3 0.3-0.8 0.5-1.2 0.5s-0.9-0.2-1.2-0.5l-2.6-2.6C0.2 48.2 0 47.8 0 47.3c0-0.4 0.2-0.9 0.5-1.2l20.3-20.3L0.5 5.5C0.2 5.2 0 4.7 0 4.3s0.2-0.9 0.5-1.2l2.6-2.6C3.4 0.2 3.9 0 4.3 0s0.9 0.2 1.2 0.5l24.1 24.1C29.9 24.9 30.1 25.4 30.1 25.8z" /></svg>'; // delimiter between crumbs
+  $delimiter = '&nbsp;/&nbsp;'; // delimiter between crumbs
   $home = 'Início'; // text for the 'Home' link
   $showCurrent = 1; // 1 - show current post/page title in breadcrumbs, 0 - don't show
   $before = '<span class="current">'; // tag before the current crumb
@@ -121,11 +121,11 @@ function wp_breadcrumb() {
 
     }
 
-		if (get_query_var('paged')) {
+    if (get_query_var('paged')) {
 
-			if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) echo ' ';
+      if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) echo ' ';
       echo __('') . ' ' . get_query_var('');
-			if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) echo '';
+      if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) echo '';
 
     }
 
