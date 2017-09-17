@@ -50,3 +50,16 @@ function custom_wp_nav_menu($var) {
   );
   return is_array($var) ? array_intersect($var, $allowed_classes) : '';
 }
+
+//-------------------------------------------------------------------
+// ADD ARIA-CONTROLS TO MENU
+//-------------------------------------------------------------------
+
+add_filter('nav_menu_link_attributes', 'aria_controls', 10, 3);
+
+function aria_controls($atts, $item, $args) {
+  if (in_array('menu-item-has-children', $item->classes)) {
+    $atts['aria-expanded'] = 'false';
+  }
+  return $atts;
+}
