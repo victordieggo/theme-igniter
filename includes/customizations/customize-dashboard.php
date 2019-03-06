@@ -54,3 +54,17 @@ function remove_dashboard_widgets() {
   unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
 
 }
+
+//-------------------------------------------------------------------
+// REMOVE DASHBOARD MENU SEPARATORS
+//-------------------------------------------------------------------
+
+add_action('admin_head', 'remove_separator');
+
+function remove_separator() {
+  echo '<style>
+    .wp-menu-separator {
+      display: none;
+    }
+  </style>';
+}
