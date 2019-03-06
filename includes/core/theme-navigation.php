@@ -1,7 +1,7 @@
 <?php
 
 //===================================================================
-// REGISTER WP MENUS
+// THEME NAVIGATION
 // wp_nav_menu(array('theme_location' => 'main-menu'));
 //===================================================================
 
@@ -62,4 +62,48 @@ function aria_controls($atts, $item, $args) {
     $atts['aria-expanded'] = 'false';
   }
   return $atts;
+}
+
+//-------------------------------------------------------------------
+// GET TRANSIENT MENU
+//-------------------------------------------------------------------
+
+function transient_menu($args = array()) {
+  $defaults = array(
+    'menu' => '',
+    'theme_location' => '',
+    'echo' => true,
+  );
+
+  $args = wp_parse_args($args, $defaults);
+
+  $transient_name = 'menu-' . $args['menu'] . '-' . $args['theme_location'];
+  $menu = get_transient($transient_name);
+
+  if (false === $menu) {
+    $menu_args = $args;
+    $menu_args['echo'] = false;
+    $menu = wp_nav_menu($menu_args);
+    set_transient($transient_name, $menu, 0);
+  }
+
+  if (false === $args['echo']) {
+    return $menu;
+  }
+
+  echo $menu;
+}
+
+//-------------------------------------------------------------------
+// UPDATE MENU TRANSIENT
+//-------------------------------------------------------------------
+
+add_action('wp_update_nav_menu', 'update_menus');
+
+function update_menus() {
+  global $wpdb;
+  $menus = $wpdb->get_col('SELECT option_name FROM $wpdb->options WHERE option_name LIKE "menu-%" ');
+  foreach($menus as $menu) {
+    delete_transient($menu);
+  }
 }
