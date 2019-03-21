@@ -2,7 +2,6 @@
 
 //===================================================================
 // THEME NAVIGATION
-// wp_nav_menu(array('theme_location' => 'main-menu'));
 //===================================================================
 
 //-------------------------------------------------------------------
@@ -14,7 +13,7 @@ add_action('init', 'register_my_menus');
 function register_my_menus() {
   register_nav_menus(
     array(
-      'main-menu' => 'Menu',
+      'main-menu' => 'Menu'
     )
   );
 }
@@ -31,36 +30,61 @@ function prefix_nav_menu_args($args = '') {
 }
 
 //-------------------------------------------------------------------
-// FILTER CLASSES FROM MENUS
+// ADD CUSTOM CSS CLASS TO MENU ITEMS
 //-------------------------------------------------------------------
 
-add_filter('nav_menu_css_class', 'custom_wp_nav_menu');
-add_filter('nav_menu_item_id', 'custom_wp_nav_menu');
-add_filter('page_css_class', 'custom_wp_nav_menu');
+add_filter('nav_menu_css_class', 'add_custom_css_class_to_menu_items', 10, 2);
 
-function custom_wp_nav_menu($var) {
+function add_custom_css_class_to_menu_items($classes, $item) {
+  $classes[] = 'navBar-menuItem';
+
+  if (in_array('menu-item-has-children', $classes)) {
+    $classes[] = 'navBar-menuItem--hasChildren';
+  }
+
+  return $classes;
+}
+
+//-------------------------------------------------------------------
+// ADD CUSTOM CSS CLASS TO SUBMENUS
+//-------------------------------------------------------------------
+
+add_filter('nav_menu_submenu_css_class', 'add_custom_css_class_to_submenus');
+
+function add_custom_css_class_to_submenus($classes) {
+  $classes = array('navBar-subMenu');
+  return $classes;
+}
+
+//-------------------------------------------------------------------
+// FILTER MENU ITEMS CSS CLASS
+//-------------------------------------------------------------------
+
+add_filter('nav_menu_css_class', 'filter_menu_items_css_class');
+add_filter('nav_menu_item_id', 'filter_menu_items_css_class');
+add_filter('page_css_class', 'filter_menu_items_css_class');
+
+function filter_menu_items_css_class($var) {
   $allowed_classes = array(
-    'menu-item-has-children',
-    'current-menu-ancestor',
-    'current-menu-item',
-    'menu-item-home',
-    'menu-item',
-    'sub-menu,',
-    'menu,',
+    'navBar-menuItem',
+    'navBar-menuItem--hasChildren'
   );
   return is_array($var) ? array_intersect($var, $allowed_classes) : '';
 }
 
 //-------------------------------------------------------------------
-// ADD ARIA-CONTROLS TO MENU
+// FILTER MENU LINKS ATTRIBUTES
 //-------------------------------------------------------------------
 
-add_filter('nav_menu_link_attributes', 'aria_controls', 10, 3);
+add_filter('nav_menu_link_attributes', 'filter_menu_links_attributes', 10, 3);
 
-function aria_controls($atts, $item, $args) {
+function filter_menu_links_attributes($atts, $item, $args) {
+  $atts['class'] = 'navBar-menuItem-link';
+
   if (in_array('menu-item-has-children', $item->classes)) {
     $atts['aria-expanded'] = 'false';
   }
+
   return $atts;
 }
 
