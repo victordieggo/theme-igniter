@@ -4,6 +4,11 @@
 // Theme Name
 //======================================================================
 
+// Constants
+if (!defined('ASSETS_URL')) {
+  define('ASSETS_URL', get_template_directory_uri() . '/assets/dist');
+}
+
 // Core Files
 require_once('includes/core/theme-assets.php');
 require_once('includes/core/theme-image-sizes.php');
