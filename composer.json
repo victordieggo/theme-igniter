@@ -1,6 +1,6 @@
 {
   "name": "victordieggo/theme-igniter",
-  "type": "library",
+  "type": "wordpress-theme",
   "description": "A basic structure to quick start your WordPress theme development.",
   "keywords": ["WordPress"],
   "homepage": "https://github.com/victordieggo/theme-igniter",
