@@ -5,6 +5,7 @@
   "keywords": ["WordPress"],
   "homepage": "https://github.com/victordieggo/theme-igniter",
   "license": "MIT",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Victor Diego",
