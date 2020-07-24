@@ -1,0 +1,16 @@
+{
+  "name": "victordieggo/theme-igniter",
+  "type": "WordPress theme",
+  "description": "A basic structure to quick start your WordPress theme development.",
+  "keywords": ["WordPress"],
+  "homepage": "https://github.com/victordieggo/theme-igniter",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Victor Diego",
+      "email": "victordieggo@gmail.com",
+      "homepage": "https://victordiego.com/",
+      "role": "Developer"
+    }
+  ],
+}
