@@ -13,8 +13,5 @@
       "homepage": "https://victordiego.com/",
       "role": "Developer"
     }
-  ],
-  "require": {
-    "composer/installers": "~1.0"
-  }
+  ]
 }
