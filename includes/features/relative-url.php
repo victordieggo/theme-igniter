@@ -5,9 +5,7 @@
 // https://github.com/wp-plugins/relative-url/blob/master/relative-url.php
 //===================================================================
 
-add_action('template_redirect', 'relative_url');
-
-function relative_url() {
+add_action('template_redirect', function() {
   $filters = array(
     'bloginfo_url',
     'the_permalink',
@@ -74,4 +72,4 @@ function relative_url() {
   foreach ($filters as $filter) {
     add_filter($filter, $filter_fn);
   }
-}
+});

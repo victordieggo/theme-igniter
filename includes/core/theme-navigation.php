@@ -8,34 +8,28 @@
 // REGISTER MENUS
 //-------------------------------------------------------------------
 
-add_action('init', 'register_my_menus');
-
-function register_my_menus() {
+add_action('init', function() {
   register_nav_menus(
     array(
       'main-menu' => 'Menu'
     )
   );
-}
+});
 
 //-------------------------------------------------------------------
 // REMOVE MENU CONTAINER CREATED BY WORDPRESS
 //-------------------------------------------------------------------
 
-add_filter('wp_nav_menu_args', 'prefix_nav_menu_args');
-
-function prefix_nav_menu_args($args = '') {
+add_filter('wp_nav_menu_args', function($args = '') {
   $args['container'] = false;
   return $args;
-}
+});
 
 //-------------------------------------------------------------------
 // ADD CUSTOM CSS CLASS TO MENU ITEMS
 //-------------------------------------------------------------------
 
-add_filter('nav_menu_css_class', 'add_custom_css_class_to_menu_items', 10, 2);
-
-function add_custom_css_class_to_menu_items($classes, $item) {
+add_filter('nav_menu_css_class', function($classes, $item) {
   $classes[] = 'navBar-menuItem';
 
   if (in_array('menu-item-has-children', $classes)) {
@@ -43,26 +37,24 @@ function add_custom_css_class_to_menu_items($classes, $item) {
   }
 
   return $classes;
-}
+}, 10, 2);
 
 //-------------------------------------------------------------------
 // ADD CUSTOM CSS CLASS TO SUBMENUS
 //-------------------------------------------------------------------
 
-add_filter('nav_menu_submenu_css_class', 'add_custom_css_class_to_submenus');
-
-function add_custom_css_class_to_submenus($classes) {
+add_filter('nav_menu_submenu_css_class', function($classes) {
   $classes = array('navBar-subMenu');
   return $classes;
-}
+});
 
 //-------------------------------------------------------------------
 // FILTER MENU ITEMS CSS CLASS
 //-------------------------------------------------------------------
 
-add_filter('nav_menu_css_class', 'filter_menu_items_css_class');
-add_filter('nav_menu_item_id', 'filter_menu_items_css_class');
 add_filter('page_css_class', 'filter_menu_items_css_class');
+add_filter('nav_menu_item_id', 'filter_menu_items_css_class');
+add_filter('nav_menu_css_class', 'filter_menu_items_css_class');
 
 function filter_menu_items_css_class($var) {
   $allowed_classes = array(
@@ -76,9 +68,7 @@ function filter_menu_items_css_class($var) {
 // FILTER MENU LINKS ATTRIBUTES
 //-------------------------------------------------------------------
 
-add_filter('nav_menu_link_attributes', 'filter_menu_links_attributes', 10, 3);
-
-function filter_menu_links_attributes($atts, $item, $args) {
+add_filter('nav_menu_link_attributes', function($atts, $item, $args) {
   $atts['class'] = 'navBar-menuItem-link';
 
   if (in_array('menu-item-has-children', $item->classes)) {
@@ -86,7 +76,7 @@ function filter_menu_links_attributes($atts, $item, $args) {
   }
 
   return $atts;
-}
+}, 10, 3);
 
 //-------------------------------------------------------------------
 // GET TRANSIENT MENU
@@ -122,12 +112,10 @@ function transient_menu($args = array()) {
 // UPDATE MENU TRANSIENT
 //-------------------------------------------------------------------
 
-add_action('wp_update_nav_menu', 'update_menus');
-
-function update_menus() {
+add_action('wp_update_nav_menu', function() {
   global $wpdb;
   $menus = $wpdb->get_col('SELECT option_name FROM $wpdb->options WHERE option_name LIKE "menu-%" ');
   foreach($menus as $menu) {
     delete_transient($menu);
   }
-}
+});

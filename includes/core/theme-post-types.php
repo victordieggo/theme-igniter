@@ -8,9 +8,7 @@
 // CREATE CUSTOM POST TYPE
 //-------------------------------------------------------------------
 
-add_action('init', 'slider_post_type', 0);
-
-function slider_post_type() {
+add_action('init', function() {
 
   $labels = array(
     'name'                => _x('Slider', 'Post Type General Name', 'text_domain'),
@@ -50,7 +48,7 @@ function slider_post_type() {
 
   register_post_type('slider', $args);
 
-}
+});
 
 //-------------------------------------------------------------------
 // CUSTOMIZE POST TYPE MESSAGES
@@ -58,9 +56,7 @@ function slider_post_type() {
 // BASED ON/ORIGINAL AT https://gist.github.com/bryceadams/591a008cb5e16131328c#file-gistfile1-php
 //-------------------------------------------------------------------
 
-add_filter('post_updated_messages', 'slider_updated_messages');
-
-function slider_updated_messages($messages) {
+add_filter('post_updated_messages', function($messages) {
 
   global $post, $post_ID;
 
@@ -80,4 +76,4 @@ function slider_updated_messages($messages) {
 
   return $messages;
 
-}
+});

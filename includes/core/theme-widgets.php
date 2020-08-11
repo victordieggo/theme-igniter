@@ -8,9 +8,7 @@
 // REMOVE ALL DEFAULT WIDGETS
 //-------------------------------------------------------------------
 
-add_action('widgets_init', 'unregister_default_widgets', 11);
-
-function unregister_default_widgets() {
+add_action('widgets_init', function() {
 
   unregister_widget('WP_Widget_Pages');
   unregister_widget('WP_Widget_Calendar');
@@ -30,7 +28,7 @@ function unregister_default_widgets() {
   unregister_widget('WP_Widget_Media_Audio');
   unregister_widget('WP_Widget_Media_Image');
 
-}
+}, 11);
 
 //-------------------------------------------------------------------
 // REGISTER MAIN SIDEBAR

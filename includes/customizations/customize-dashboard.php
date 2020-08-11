@@ -8,9 +8,7 @@
 // Hide Dashboard Menu Itens
 //-------------------------------------------------------------------
 
-add_action('admin_menu', 'remove_menus');
-
-function remove_menus() {
+add_action('admin_menu', function() {
 
   // remove_menu_page('index.php');                  // Dashboard
   // remove_menu_page('edit.php');                   // Posts
@@ -23,25 +21,21 @@ function remove_menus() {
   // remove_menu_page('tools.php');                  // Tools
   // remove_menu_page('options-general.php');        // Settings
 
-}
+});
 
 //-------------------------------------------------------------------
 // REMOVE THEME EDITOR
 //-------------------------------------------------------------------
 
-add_action('_admin_menu', 'remove_editor_menu', 1);
-
-function remove_editor_menu() {
+add_action('_admin_menu', function() {
   remove_action('admin_menu', '_add_themes_utility_last', 101);
-}
+}, 1);
 
 //-------------------------------------------------------------------
 // REMOVE DASHBOARD WIDGETS
 //-------------------------------------------------------------------
 
-add_action('wp_dashboard_setup', 'remove_dashboard_widgets');
-
-function remove_dashboard_widgets() {
+add_action('wp_dashboard_setup', function() {
 
   global $wp_meta_boxes;
 
@@ -54,18 +48,16 @@ function remove_dashboard_widgets() {
   unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
   unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
 
-}
+});
 
 //-------------------------------------------------------------------
 // REMOVE DASHBOARD MENU SEPARATORS
 //-------------------------------------------------------------------
 
-add_action('admin_head', 'remove_separator');
-
-function remove_separator() {
+add_action('admin_head', function() {
   echo '<style>
     .wp-menu-separator {
       display: none;
     }
   </style>';
-}
+});
