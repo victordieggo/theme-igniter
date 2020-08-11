@@ -5,31 +5,33 @@
 //===================================================================
 
 //-------------------------------------------------------------------
-// CREATE CUSTOM POST TYPE
+// REGISTER POST TYPE
 //-------------------------------------------------------------------
 
 add_action('init', function() {
 
-  $labels = array(
-    'name'                => _x('Slider', 'Post Type General Name', 'text_domain'),
-    'singular_name'       => _x('Slide', 'Post Type Singular Name', 'text_domain'),
-    'menu_name'           => __('Slider', 'text_domain'),
-    'parent_item_colon'   => __('Parent Item', 'text_domain'),
-    'all_items'           => __('Todos os Slides', 'text_domain'),
-    'view_item'           => __('Ver Slides', 'text_domain'),
-    'add_new_item'        => __('Adicionar novo Slide', 'text_domain'),
-    'add_new'             => __('Adicionar novo Slide', 'text_domain'),
-    'edit_item'           => __('Editar Slide', 'text_domain'),
-    'update_item'         => __('Atualizar Slide', 'text_domain'),
-    'search_items'        => __('Buscar Slides', 'text_domain'),
-    'not_found'           => __('Nada encontrado', 'text_domain'),
-    'not_found_in_trash'  => __('Nada encontrado na lixeira', 'text_domain'),
-  );
+  $label = 'slide';
+  $plural = 'Slides';
+  $singular = 'Slide';
 
   $args = array(
-    'label'               => __('slider', 'text_domain'),
-    'description'         => __('Cadastro de imagens do slider.', 'text_domain'),
-    'labels'              => $labels,
+    'label'               => $label,
+    'description'         => 'Cadastro dos slides exibidos slider.',
+    'labels'              => [
+      'name'               => $singular,
+      'singular_name'      => $singular,
+      'menu_name'          => $plural,
+      'parent_item_colon'  => $singular . 'pai: ',
+      'all_items'          => 'Todos os ' . strtolower($plural),
+      'view_item'          => 'Ver ' . strtolower($singular),
+      'add_new_item'       => 'Adicionar novo ' . strtolower($singular),
+      'add_new'            => 'Adicionar novo',
+      'edit_item'          => 'Editar ' . strtolower($singular),
+      'update_item'        => 'Atualizar ' . strtolower($singular),
+      'search_items'       => 'Buscar ' . strtolower($plural),
+      'not_found'          => 'Nenhum ' . strtolower($singular) . ' encontrado.',
+      'not_found_in_trash' => 'Nenhum ' . strtolower($singular) . ' encontrado na lixeira.',
+    ],
     'supports'            => array('title', 'thumbnail', 'page-attributes'),
     'hierarchical'        => false,
     'public'              => false,
@@ -46,32 +48,29 @@ add_action('init', function() {
     'capability_type'     => 'post',
   );
 
-  register_post_type('slider', $args);
-
+  register_post_type($label, $args);
 });
 
 //-------------------------------------------------------------------
 // CUSTOMIZE POST TYPE MESSAGES
-// FOUND AT http://bryceadams.com/custom-post-type-updated-admin-messages-wordpress/
-// BASED ON/ORIGINAL AT https://gist.github.com/bryceadams/591a008cb5e16131328c#file-gistfile1-php
 //-------------------------------------------------------------------
 
 add_filter('post_updated_messages', function($messages) {
 
   global $post, $post_ID;
 
-  $messages['slider'] = array(
-    0 => '', // Unused. Messages start at index 1.
-    1 => sprintf(__('Slide atualizado. <a href="%s">Ver Slider</a>'), esc_url(home_url('/'))),
+  $messages['slide'] = array(
+    0 => '',
+    1 => sprintf('Slide atualizado. <a href="%s">Ver slide</a>', esc_url(home_url('/'))),
     2 => '',
     3 => '',
-    4 => __('Slide atualizado.'),
-    5 => isset($_GET['revision']) ? sprintf(__('Slide restaurado para revisão de %s'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
-    6 => sprintf(__('Slide Publicado. <a href="%s">Ver Slider</a>'), esc_url(home_url('/'))),
-    7 => __('Slide salvo.'),
-    8 => sprintf(__('Slide enviado.' )),
-    9 => sprintf(__( 'Slide agendado para: <strong>%1$s</strong>.'), date_i18n(__( 'M j, Y @ G:i' ), strtotime( $post->post_date ))),
-    10 => sprintf(__( 'Rascunho do Slide Atualizado.')),
+    4 => 'Slide atualizado.',
+    5 => isset($_GET['revision']) ? sprintf('Slide restaurado para revisão de %s', wp_post_revision_title((int) $_GET['revision'], false)) : false,
+    6 => sprintf('Slide publicado. <a href="%s">Ver slide</a>', esc_url(home_url('/'))),
+    7 => 'Slide salvo.',
+    8 => 'Slide enviado.',
+    9 => sprintf('Slide agendado para: <strong>%1$s</strong>.', date_i18n('M j, Y @ G:i', strtotime($post->post_date))),
+    10 => sprintf('Rascunho do slide atualizado.'),
   );
 
   return $messages;
